@@ -1,93 +1,102 @@
 # lschmod
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS-informational)](https://github.com/) [![Shell](https://img.shields.io/badge/Shell-Bash-blue)](https://www.gnu.org/software/bash/)
 
+**lschmod** is a shell script for macOS and Linux that displays files and directories in a tree structure with their numeric `chmod` permissions (e.g,: `755`, `600`, etc.). This makes it easy to check permissions across multiple directories. See "[Usage](#usage)" to learn how to customize the script's behaviour.
 
-## Getting started
+## Features
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/thaikolja/lschmod.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/thaikolja/lschmod/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- Displays directories and files in a tree structure with numeric `chmod` values
+- Respects `.gitignore` (if exists) by default (excludes matching files/directories)
+- Excludes hidden files/directories by default
+- Supports depth limiting with `-l`/`--levels` option
+- Option to show hidden files with `-a`/`--all` option
+- Option to ignore .gitignore with `-n`/`--no-gitignore` option
+- Handles both single files and directories
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
+### Manually
+
+1. Download the `lschmod.sh` script
+2. Make it executable: `chmod +x lschmod.sh`
+3. (Optional) Rename it to be detected as a binary: `mv lschmod.sh lschmod`
+4. Optionally, place it in your PATH for system-wide access
+
+### Automatically
+
+Use this one-line command to automate steps 1, 2, and 3. 
+
+```bash
+curl -Lo lschmod https://gitlab.com/thaikolja/lschmod/-/raw/main/lschmod.sh && chmod +x lschmod
+```
+
+> [!TIP]
+>
+> This command **does not** make this script system-wide (step 5). To do this, either copy the file into `/usr/local/bin/` **or** add it to your `$PATH` variable in your `.zshrc` (macOS) or `.bashrc` (Linux): `export PATH="/path/to/script/dir/:$PATH"`.
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash
+./lschmod [OPTIONS] PATH
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Options
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+- `-a, --all`: Include hidden files and directories (starting with `.`)
+- `-l, --levels N`: Limit the depth of the search to `N` levels
+- `-n, --no-gitignore`: Do not respect `.gitignore` file
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Examples
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```bash
+# Show files in a directory (excluding hidden files and respecting .gitignore)
+./lschmod /path/to/directory
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+# Show all files, including hidden ones
+./lschmod -a /path/to/directory
+
+# Show files up to 2 levels deep
+./lschmod -l 2 /path/to/directory
+
+# Show files but ignoring `.gitignore`
+./lschmod -n /path/to/directory
+
+# Show all files up to 3 levels deep, ignoring `.gitignore`
+./lschmod -a -l 3 -n /path/to/directory
+```
+
+## Example Output
+
+```bash
+❯ lschmod . # Use `.` for current directory
+755 .
+        ├── 644 index.php
+        ├── 644 license.txt
+        ├── 644 readme.html
+        ├── 644 wp-activate.php
+        ├── 755 wp-admin/
+    ├── 644 about.php
+    ├── 644 admin-ajax.php
+    ├── 644 admin-footer.php
+    ├── 644 admin-functions.php
+    ├── 644 admin-header.php
+    ├── 644 admin-post.php
+    ├── 644 admin.php
+    ├── 644 async-upload.php
+    ├── 644 authorize-application.php
+    ├── 644 comment.php
+    ├── 644 contribute.php
+    ├── 644 credits.php
+    ├── 755 css/
+        ├── 644 about-rtl.css
+        ├── 644 about-rtl.min.css
+```
+
+## Author
+
+* Kolja Nolte (kolja.nolte@gmail.com)
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
