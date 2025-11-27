@@ -16,24 +16,31 @@
 
 ## Installation
 
+### Homebrew (macOS)
+
+You can install lschmod via Homebrew:
+
+```bash
+# Tap into the formula
+brew tap thaikolja/lschmod
+
+# Install system-wide
+brew install lschmod
+```
+
 ### Manually
 
 1. Download the `lschmod.sh` script
+
 2. Make it executable: `chmod +x lschmod.sh`
-3. (Optional) Rename it to be detected as a binary: `mv lschmod.sh lschmod`
-4. Optionally, place it in your PATH for system-wide access
 
-### Automatically
+3. Rename it to be detected as a binary: `mv lschmod.sh lschmod`
 
-Use this one-line command to automate steps 1, 2, and 3. 
+4. Optionally, place it in your PATH for system-wide access in your `.zshrc` (macOS) or `.bashrc`:
 
-```bash
-curl -Lo lschmod https://gitlab.com/thaikolja/lschmod/-/raw/main/lschmod.sh && chmod +x lschmod
-```
-
-> [!TIP]
->
-> This command **does not** make this script system-wide (step 5). To do this, either copy the file into `/usr/local/bin/` **or** add it to your `$PATH` variable in your `.zshrc` (macOS) or `.bashrc` (Linux): `export PATH="/path/to/script/dir/:$PATH"`.
+   ```bash
+   export PATH="/path/to/binary/dir:$PATH"
+   ```
 
 ## Usage
 
